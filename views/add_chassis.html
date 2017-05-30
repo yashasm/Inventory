@@ -15,6 +15,42 @@
 			</form>
 		</div>
 	</div>
+
+	<br>
+
+	<h4>Add new Chassis</h4>
+	<br>
+	<form class="form-inline">
+		<label class="sr-only" for="inlineFormInput">Chassis IP</label> <input
+			type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
+			id="inlineFormInput" placeholder="0.0.0.0"> <label
+			class="sr-only" for="inlineFormInput">User</label> <input type="text"
+			class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput"
+			placeholder=""> <label class="sr-only" for="inlineFormInput">password</label>
+		<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
+			id="inlineFormInput" placeholder="">
+
+		<button type="submit" class="btn btn-primary">Save</button>
+	</form>
+
+	<br>
+
+	<h4>Modify Existing Chassis</h4>
+	<br>
+	<div ng-repeat="item in values">
+	<form class="form-inline" >
+		<label class="sr-only" for="inlineFormInput">Chassis IP</label> <input
+			type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
+			id="inlineFormInput" placeholder="0.0.0.0" ng-model=item.chassis_ip> <label
+			class="sr-only" for="inlineFormInput">User</label> <input type="text"
+			class="form-control mb-2 mr-sm-2 mb-sm-0" id="inlineFormInput"
+			placeholder="" ng-model=item.chassis_username> <label class="sr-only" for="inlineFormInput">password</label>
+		<input type="text" class="form-control mb-2 mr-sm-2 mb-sm-0"
+			id="inlineFormInput" placeholder="" ng-model=item.chassis_password>
+
+		<button type="submit" class="btn btn-primary" ng-click="modify(item.chassis_ip,item.chassis_username,item.chassis_password)" >Modify</button>
 	
-	
+	</form>
+	<br>
+</div>
 </div>

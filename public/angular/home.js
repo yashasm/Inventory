@@ -172,6 +172,26 @@ inventoryApp.controller('add_modify_controller', [ '$scope', '$http',
 	function($scope, $http) {
 		console.log("Inside management_tab_controller controller");
 		
+		$scope.modify = function(ip,username,password){
+			console.log(ip+username+password);
+			
+			// Simple GET request example:
+			$http({
+				method : 'POST',
+				url : '/modifyChassisCredentials'
+			}).then(function successCallback(response) {
+				// this callback will be called asynchronously
+				// when the response is available
+				$scope.values = response.data.result;
+				console.log(response.data.result);
+			}, function errorCallback(response) {
+				// called asynchronously if an error occurs
+				// or server returns response with an error status.
+				console.log("Failed");
+			});
+			
+		}
+		
 		$scope.$on('$routeChangeSuccess', function() {
 			console.log("executed now");
 
