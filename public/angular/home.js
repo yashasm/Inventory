@@ -1,5 +1,5 @@
 var inventoryApp = angular.module('inventoryApp', [ 'ngMaterial', 'ngAnimate',
-		'ngAria', 'ngRoute' ])
+		'ngAria', 'ngRoute','angular.filter' ])
 
 inventoryApp.config(function($routeProvider,$locationProvider) {
 	$locationProvider.hashPrefix('');
