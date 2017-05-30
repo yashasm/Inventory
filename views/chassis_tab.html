@@ -1,0 +1,114 @@
+<br>
+<h3>
+  Inventory:
+  <small class="text-muted">Chassis History</small>
+</h3>
+
+<div ng-controller="chassis_tab_controller" >
+
+
+	<div class="card">
+		<div class="card-block">
+
+			<form class="form-inline">
+				<div class="form-group">
+					<label>Chassis ID</label> <input type="text" ng-model="searchChassis"
+						class="form-control mx-sm-3">
+				</div>
+				<div class="form-group">
+					<label>IP</label> <input type="text" ng-model="searchIP" class="form-control mx-sm-3">
+				</div>
+
+
+			</form>
+			<br>
+			<form class="form-inline">
+				<div class="form-group ">
+					<label>Software Version</label> <input type="text" ng-model="searchSoftwareVersion"
+						class="form-control mx-sm-3">
+				</div>
+				<div class="form-group">
+					<label>Kernel Veresion</label> <input type="text" ng-model="searchKernelVersion"
+						class="form-control  mx-sm-3">
+				</div>
+				<div class="form-group">
+					<label>Date</label> <input type="text" ng-model="searchDate" class="form-control mx-sm-3">
+				</div>
+
+			</form>
+			
+		</div>
+		
+
+
+	</div>
+
+
+<br>
+
+
+	<table class="table table-bordered">
+		<thead class="thead-inverse">
+			<tr>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'run_id'; sortReverse = !sortReverse">
+
+						Run ID</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'chassis_id'; sortReverse = !sortReverse">
+
+						Chassis ID</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'chassis_ip'; sortReverse = !sortReverse">
+
+						IP</span></th>
+
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'management1_kernel_version'; sortReverse = !sortReverse">
+
+						M1 Ker Ver</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'management1_software_version'; sortReverse = !sortReverse">
+
+						M1 Soft Ver</span></th>
+				<!-- <th>M1 Atmel Ver</th>
+				<th>M1 FPGA Ver</th> -->
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'management2_kernel_version'; sortReverse = !sortReverse">
+
+						M2 Ker Ver</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'management2_software_version'; sortReverse = !sortReverse">
+
+						M2 Soft Ver</span></th>
+				<!-- <th>M2 Atmel Ver</th>
+				<th>M2 FPGA Ver</th> -->
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'date'; sortReverse = !sortReverse">
+
+						Date</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="table-success"
+				ng-repeat="item in value = (values | filter:{'chassis_id': searchChassis}  | filter:{'chassis_ip': searchIP} | filter:{'management1_software_version': searchSoftwareVersion} | filter:{'management2_software_version': searchSoftwareVersion} | filter:{'management1_kernel_version': searchKernelVersion } | filter:{'management2_kernel_version': searchKernelVersion } | filter:{'date': searchDate } ) | orderBy:sortType:sortReverse | limitTo: limit ">
+
+				<th scope="row">{{item.run_id}}</th>
+				<td>{{item.chassis_id}}</td>
+				<td>{{item.chassis_ip}}</td>
+				<td>{{item.management1_kernel_version}}</td>
+				<td>{{item.management1_software_version}}</td>
+				<!-- <td>{{item.management1_atmel_version}}</td>
+				 <td>{{item.management1_fpga_version}}</td> -->
+				<td>{{item.management2_kernel_version}}</td>
+				<td>{{item.management2_software_version}}</td>
+				<!-- <td>{{item.management2_atmel_version}}</td>
+				<td>{{item.management2_fpga_version}}</td> -->
+				<td>{{item.date}}</td>
+			</tr>
+
+		</tbody>
+	</table>
+	<br>
+<button type="button" class="btn btn-info btn-lg btn-block" ng-click="test()">Show More</button>
+</div>
