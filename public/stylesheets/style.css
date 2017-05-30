@@ -13,7 +13,7 @@ a {
 }
 
 .fake-link {
-    color: blue;
+    color: #cc0000;
     text-decoration: underline;
     cursor: pointer;
 }

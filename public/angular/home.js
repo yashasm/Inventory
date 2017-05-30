@@ -171,25 +171,73 @@ inventoryApp.controller('management_tab_controller', [ '$scope', '$http',
 inventoryApp.controller('add_modify_controller', [ '$scope', '$http',
 	function($scope, $http) {
 		console.log("Inside management_tab_controller controller");
+		$scope.failure = false;
 		
-		$scope.modify = function(ip,username,password){
-			console.log(ip+username+password);
+		$scope.delete = function(ip){
+			console.log(ip);
 			
-			// Simple GET request example:
+			var deleteUser = {
+	                "ip": ip
+	        }
+			
 			$http({
 				method : 'POST',
-				url : '/modifyChassisCredentials'
+				url : '/deleteChassis',
+				data: deleteUser
 			}).then(function successCallback(response) {
 				// this callback will be called asynchronously
 				// when the response is available
+				console.log(response.data.result);
 				$scope.values = response.data.result;
 				console.log(response.data.result);
+				
 			}, function errorCallback(response) {
 				// called asynchronously if an error occurs
 				// or server returns response with an error status.
 				console.log("Failed");
+				
+				console.log(response.data.result);
 			});
 			
+			
+			
+		}
+		
+		$scope.newIP = "";
+		$scope.newUser = "";
+		$scope.newPassword = "";
+		$scope.addNewChassis = function(){
+			console.log($scope.newIP+$scope.newUser+$scope.newPassword);
+			
+			if($scope.newIP == "" || $scope.newUser == "" || $scope.newPassword == ""){
+				console.log("Invalid Input");
+			}
+			else{
+				var newUser = {
+		                "ip": $scope.newIP,
+		                "user":$scope.newUser,
+		                "password" : $scope.newPassword                  
+		        }
+				
+				$http({
+					method : 'POST',
+					url : '/addNewChassis',
+					data: newUser
+				}).then(function successCallback(response) {
+					// this callback will be called asynchronously
+					// when the response is available
+					console.log(response.data.result);
+					$scope.values = response.data.result;
+					console.log(response.data.result);
+					$scope.failure = false;
+				}, function errorCallback(response) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					console.log("Failed");
+					$scope.failure = true;
+					console.log(response.data.result);
+				});
+			}
 		}
 		
 		$scope.$on('$routeChangeSuccess', function() {

@@ -224,4 +224,165 @@ router.get('/getAllRegisteredChassis', function(req, res, next) {
 	});
 });	
 
+
+
+router.post('/addNewChassis', function(req, res, next) {
+	console.log("Going through addNewChassis");
+
+	console.log(req.body);
+	
+	
+	// res.render('index', { title: 'Express' });
+
+	mysqlPool.getConnection(function(err, connection) {
+		if (err) {
+			console.log("failed to connection in error");
+			console.log(err);
+
+			res.status(200).send({
+				"result" : "failed"
+			});
+			return;
+		}
+
+		var sqlAvailableChassis = "SELECT count(1) FROM chassis_available where chassis_ip = '"+req.body.ip+"'";
+		console.log(sqlAvailableChassis);
+		connection.query(sqlAvailableChassis, function(err, masterResult) {
+
+			if (err) {
+				console.log("failed to connection in error");
+				console.log(err);
+
+				res.status(200).send({
+					"result" : "failed query"
+				});
+				return;
+			}
+			
+			
+			
+			var masterResultsJson = JSON.stringify(masterResult);
+			var masterResultOutput = JSON.parse(masterResultsJson);
+			//connection.release();
+			
+			console.log(masterResultOutput[0]['count(1)']);
+			
+			
+			if(masterResultOutput[0]['count(1)'] == "0"){
+				var sqlInsertChassis = "INSERT INTO chassis_available VALUES ('"+req.body.ip+"','"+req.body.user+"','"+req.body.password+"','1')";
+				console.log(sqlInsertChassis);
+				
+				connection.query(sqlInsertChassis, function(err, masterResult) {
+
+					if (err) {
+						console.log("failed to connection in error");
+						console.log(err);
+						connection.release();
+						res.status(200).send({
+							"result" : "failed"
+						});
+						return;
+					}
+
+					
+					var sqlAvailableChassis = "SELECT * FROM chassis_available";
+
+					connection.query(sqlAvailableChassis, function(err, masterResult) {
+
+						if (err) {
+							console.log("failed to connection in error");
+							console.log(err);
+							connection.release();
+							res.status(200).send({
+								"result" : "failed query"
+							});
+							return;
+						}
+
+						var masterResultsJson = JSON.stringify(masterResult);
+						var masterResultOutput = JSON.parse(masterResultsJson);
+						connection.release();
+						
+						res.status(200).send({
+							"result" : masterResultOutput
+						});
+						return;
+					});
+					
+				});
+				
+			}
+			else{
+				console.log("Record exist");
+				connection.release();
+				res.status(400).send({
+					"result" : {"status":"Failed"}
+				});
+				return;
+				
+			}
+			
+			
+		});
+	});
+});	
+
+
+router.post('/deleteChassis', function(req, res, next) {
+	console.log("Going through deleteChassis");
+
+	// res.render('index', { title: 'Express' });
+
+	mysqlPool.getConnection(function(err, connection) {
+		if (err) {
+			console.log("failed to connection in error");
+			console.log(err);
+
+			res.status(200).send({
+				"result" : "failed"
+			});
+			return;
+		}
+
+		var sqlDeleteChassis = "DELETE FROM chassis_available where chassis_ip = '"+req.body.ip+"'";
+		console.log(sqlDeleteChassis);
+		connection.query(sqlDeleteChassis, function(err, masterResult) {
+
+			if (err) {
+				console.log("failed to connection in error");
+				console.log(err);
+
+				res.status(200).send({
+					"result" : "failed query"
+				});
+				return;
+			}
+
+			var sqlAvailableChassis = "SELECT * FROM chassis_available";
+
+			connection.query(sqlAvailableChassis, function(err, masterResult) {
+
+				if (err) {
+					console.log("failed to connection in error");
+					console.log(err);
+					connection.release();
+					res.status(200).send({
+						"result" : "failed query"
+					});
+					return;
+				}
+
+				var masterResultsJson = JSON.stringify(masterResult);
+				var masterResultOutput = JSON.parse(masterResultsJson);
+				connection.release();
+				
+				res.status(200).send({
+					"result" : masterResultOutput
+				});
+				return;
+			});
+		});
+	});
+});	
+
 module.exports = router;
