@@ -15,7 +15,7 @@ use inventory;
 CREATE TABLE chassis_master (
 run_id INT(6),
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-chassis_id VARCHAR(30),
+chassis_id VARCHAR(100),
 chassis_ip VARCHAR(30),
 management1_kernel_version VARCHAR(30),
 management1_software_version VARCHAR(30),
