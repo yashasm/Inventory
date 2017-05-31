@@ -107,4 +107,4 @@
     0 8,20 * * * /usr/bin/python /root/inventory/Inventory/Collect_chassis_details.py
 
 6) To stop the process use forever command
-    forever stopall
+    "forever stopall"
