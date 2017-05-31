@@ -24,6 +24,51 @@ inventoryApp.controller('chassis_tab_controller', [ '$scope', '$http',
 			$scope.sortType = 'run_id';
 			$scope.sortReverse = false;
 			$scope.limit = 20;
+			
+			
+			$scope.view = "Show Latest";
+			var showLatest = true;
+			
+			
+			
+			$scope.switchView = function(){
+				if(showLatest){
+					$scope.view = "Show All";
+					showLatest = false;
+					$http({
+						method : 'GET',
+						url : '/getUniqueChassisMaster'
+					}).then(function successCallback(response) {
+						// this callback will be called asynchronously
+						// when the response is available
+						$scope.values = response.data.result;
+						console.log(response.data.result);
+					}, function errorCallback(response) {
+						// called asynchronously if an error occurs
+						// or server returns response with an error status.
+						console.log("Failed");
+					});
+					
+				}
+				else{
+					$scope.view = "Show Latest";
+					showLatest = true;
+					$http({
+						method : 'GET',
+						url : '/getAllChassisMaster'
+					}).then(function successCallback(response) {
+						// this callback will be called asynchronously
+						// when the response is available
+						$scope.values = response.data.result;
+						console.log(response.data.result);
+					}, function errorCallback(response) {
+						// called asynchronously if an error occurs
+						// or server returns response with an error status.
+						console.log("Failed");
+					});
+				}
+				
+			}
 
 			$scope.test = function() {
 
@@ -58,12 +103,53 @@ inventoryApp.controller('drives_tab_controller', [ '$scope', '$http',
 		function($scope, $http) {
 			console.log("Inside drives_tab_controller controller");
 			
+			$scope.view = "Show Latest";
+			var showLatest = true;
 			$scope.sortType = 'run_id';
 			$scope.sortReverse = false;
 			$scope.limit = 20;
+			
+			$scope.switchView = function(){
+				if(showLatest){
+					$scope.view = "Show All";
+					showLatest = false;
+					$http({
+						method : 'GET',
+						url : '/getAllUniqueDrivesMaster'
+					}).then(function successCallback(response) {
+						// this callback will be called asynchronously
+						// when the response is available
+						$scope.values = response.data.result;
+						console.log(response.data.result);
+					}, function errorCallback(response) {
+						// called asynchronously if an error occurs
+						// or server returns response with an error status.
+						console.log("Failed");
+					});
+					
+				}
+				else{
+					$scope.view = "Show Latest";
+					showLatest = true;
+					$http({
+						method : 'GET',
+						url : '/getAllDrivesMaster'
+					}).then(function successCallback(response) {
+						// this callback will be called asynchronously
+						// when the response is available
+						$scope.values = response.data.result;
+						console.log(response.data.result);
+					}, function errorCallback(response) {
+						// called asynchronously if an error occurs
+						// or server returns response with an error status.
+						console.log("Failed");
+					});
+				}
+				
+			}
 
 			$scope.LoadMore = function() {
-
+				
 				$scope.limit = $scope.limit + 20;
 			}
 			
@@ -98,6 +184,49 @@ inventoryApp.controller('controller_tab_controller', [ '$scope', '$http',
 		$scope.sortType = 'run_id';
 		$scope.sortReverse = false;
 		$scope.limit = 20;
+		$scope.view = "Show Latest";
+		var showLatest = true;
+		
+		
+		
+		$scope.switchView = function(){
+			if(showLatest){
+				$scope.view = "Show All";
+				showLatest = false;
+				$http({
+					method : 'GET',
+					url : '/getUniqueControllerMaster'
+				}).then(function successCallback(response) {
+					// this callback will be called asynchronously
+					// when the response is available
+					$scope.values = response.data.result;
+					console.log(response.data.result);
+				}, function errorCallback(response) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					console.log("Failed");
+				});
+				
+			}
+			else{
+				$scope.view = "Show Latest";
+				showLatest = true;
+				$http({
+					method : 'GET',
+					url : '/getAllControllerMaster'
+				}).then(function successCallback(response) {
+					// this callback will be called asynchronously
+					// when the response is available
+					$scope.values = response.data.result;
+					console.log(response.data.result);
+				}, function errorCallback(response) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					console.log("Failed");
+				});
+			}
+			
+		}
 
 		$scope.LoadMore = function() {
 
@@ -136,7 +265,51 @@ inventoryApp.controller('management_tab_controller', [ '$scope', '$http',
 		$scope.sortType = 'run_id';
 		$scope.sortReverse = false;
 		$scope.limit = 20;
-
+		$scope.view = "Show Latest";
+		var showLatest = true;
+		
+		
+		
+		$scope.switchView = function(){
+			if(showLatest){
+				$scope.view = "Show All";
+				showLatest = false;
+				$http({
+					method : 'GET',
+					url : '/getUniqueManagementMaster'
+				}).then(function successCallback(response) {
+					// this callback will be called asynchronously
+					// when the response is available
+					$scope.values = response.data.result;
+					console.log(response.data.result);
+				}, function errorCallback(response) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					console.log("Failed");
+				});
+				
+			}
+			else{
+				$scope.view = "Show Latest";
+				showLatest = true;
+				$http({
+					method : 'GET',
+					url : '/getAllManagementMaster'
+				}).then(function successCallback(response) {
+					// this callback will be called asynchronously
+					// when the response is available
+					$scope.values = response.data.result;
+					console.log(response.data.result);
+				}, function errorCallback(response) {
+					// called asynchronously if an error occurs
+					// or server returns response with an error status.
+					console.log("Failed");
+				});
+			}
+			
+		}
+		
+		
 		$scope.LoadMore = function() {
 
 			$scope.limit = $scope.limit + 20;

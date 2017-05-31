@@ -37,7 +37,8 @@
 					<label>Date</label> <input type="text" ng-model="searchDate"
 						class="form-control mx-sm-3">
 				</div>
-
+				<button type="submit" class="btn btn-primary"
+					ng-click="switchView()">{{view}}</button>
 			</form>
 
 		</div>
@@ -84,7 +85,8 @@
 		<tbody>
 			<tr class="table-success"
 				ng-repeat="item in value = (values | filter:{'chassis_id': searchChassis}  | filter:{'chassis_ip': searchIP} | filter:{'serial': searchSerial} | filter:{'slot': searchSlot} | filter:{'date': searchDate } ) | orderBy:sortType:sortReverse | limitTo: limit ">
-
+				Total Records : {{value.length}}
+				<br>
 				<th scope="row">{{item.run_id}}</th>
 				<td>{{item.chassis_id}}</td>
 				<td>{{item.chassis_ip}}</td>

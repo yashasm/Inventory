@@ -52,6 +52,50 @@ router.get('/getAllChassisMaster', function(req, res, next) {
 
 });
 
+router.get('/getUniqueChassisMaster', function(req, res, next) {
+	console.log("Going through router");
+
+	// res.render('index', { title: 'Express' });
+
+	mysqlPool.getConnection(function(err, connection) {
+		if (err) {
+			console.log("failed to connection in error");
+			console.log(err);
+
+			res.status(200).send({
+				"result" : "failed"
+			});
+			return;
+		}
+
+		var sqlChassisMaster = "select * from inventory.chassis_master as A where run_id = (select max(run_id) from inventory.chassis_master as B where A.chassis_id = B.chassis_id)";
+
+		connection.query(sqlChassisMaster, function(err, masterResult) {
+
+			if (err) {
+				console.log("failed to connection in error");
+				console.log(err);
+
+				res.status(200).send({
+					"result" : "failed query"
+				});
+				return;
+			}
+
+			var masterResultsJson = JSON.stringify(masterResult);
+			var masterResultOutput = JSON.parse(masterResultsJson);
+			connection.release();
+			
+			res.status(200).send({
+				"result" : masterResultOutput
+			});
+			return;
+		});
+	});
+
+});
+
+
 router.get('/getAllDrivesMaster', function(req, res, next) {
 	console.log("Going through getAllDrivesMaster");
 
@@ -95,6 +139,48 @@ router.get('/getAllDrivesMaster', function(req, res, next) {
 
 });
 
+router.get('/getAllUniqueDrivesMaster', function(req, res, next) {
+	console.log("Going through getAllUniqueDrivesMaster");
+
+	// res.render('index', { title: 'Express' });
+
+	mysqlPool.getConnection(function(err, connection) {
+		if (err) {
+			console.log("failed to connection in error");
+			console.log(err);
+
+			res.status(200).send({
+				"result" : "failed"
+			});
+			return;
+		}
+
+		var sqlDrivesMaster = "select * from inventory.drive_master as A where run_id = (select max(run_id) from inventory.drive_master as B where A.drive_fru = B.drive_fru)";
+
+		connection.query(sqlDrivesMaster, function(err, masterResult) {
+
+			if (err) {
+				console.log("failed to connection in error");
+				console.log(err);
+
+				res.status(200).send({
+					"result" : "failed query"
+				});
+				return;
+			}
+
+			var masterResultsJson = JSON.stringify(masterResult);
+			var masterResultOutput = JSON.parse(masterResultsJson);
+			connection.release();
+			
+			res.status(200).send({
+				"result" : masterResultOutput
+			});
+			return;
+		});
+	});
+
+});
 
 router.get('/getAllControllerMaster', function(req, res, next) {
 	console.log("Going through getAllControllerMaster");
@@ -139,6 +225,50 @@ router.get('/getAllControllerMaster', function(req, res, next) {
 
 });
 
+router.get('/getUniqueControllerMaster', function(req, res, next) {
+	console.log("Going through getUniqueControllerMaster");
+
+
+
+	mysqlPool.getConnection(function(err, connection) {
+		if (err) {
+			console.log("failed to connection in error");
+			console.log(err);
+
+			res.status(200).send({
+				"result" : "failed"
+			});
+			return;
+		}
+		
+		var sqlControllerMaster = "select * from inventory.controller_master as A where run_id = (select max(run_id) from inventory.controller_master as B where A.serial = B.serial)";
+
+		connection.query(sqlControllerMaster, function(err, masterResult) {
+
+			if (err) {
+				console.log("failed to connection in error");
+				console.log(err);
+
+				res.status(200).send({
+					"result" : "failed query"
+				});
+				return;
+			}
+
+			var masterResultsJson = JSON.stringify(masterResult);
+			var masterResultOutput = JSON.parse(masterResultsJson);
+			connection.release();
+			
+			res.status(200).send({
+				"result" : masterResultOutput
+			});
+			return;
+		});
+	});
+
+});
+
+
 router.get('/getAllManagementMaster', function(req, res, next) {
 	console.log("Going through getAllManagementMaster");
 
@@ -181,6 +311,50 @@ router.get('/getAllManagementMaster', function(req, res, next) {
 	});
 
 });
+
+router.get('/getUniqueManagementMaster', function(req, res, next) {
+	console.log("Going through getAllManagementMaster");
+
+	// res.render('index', { title: 'Express' });
+
+	mysqlPool.getConnection(function(err, connection) {
+		if (err) {
+			console.log("failed to connection in error");
+			console.log(err);
+
+			res.status(200).send({
+				"result" : "failed"
+			});
+			return;
+		}
+
+		var sqlManagementMaster = "select * from inventory.management_master as A where run_id = (select max(run_id) from inventory.management_master as B where A.serial = B.serial)";
+
+		connection.query(sqlManagementMaster, function(err, masterResult) {
+
+			if (err) {
+				console.log("failed to connection in error");
+				console.log(err);
+
+				res.status(200).send({
+					"result" : "failed query"
+				});
+				return;
+			}
+
+			var masterResultsJson = JSON.stringify(masterResult);
+			var masterResultOutput = JSON.parse(masterResultsJson);
+			connection.release();
+			
+			res.status(200).send({
+				"result" : masterResultOutput
+			});
+			return;
+		});
+	});
+
+});
+
 
 router.get('/getAllRegisteredChassis', function(req, res, next) {
 	console.log("Going through getAllRegisteredChassis");

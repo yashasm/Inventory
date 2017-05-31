@@ -1,7 +1,7 @@
 <br>
+
 <h3>
-  Inventory:
-  <small class="text-muted">Drives History</small>
+	Inventory: <small class="text-muted">Drives History</small>
 </h3>
 
 <div ng-controller="drives_tab_controller">
@@ -43,79 +43,82 @@
 					<label>Date</label> <input type="text" ng-model="searchDate"
 						class="form-control mx-sm-3">
 				</div>
+				<button type="submit" class="btn btn-primary"
+					ng-click="switchView()">{{view}}</button>
 		</div>
-		
+
 
 	</div>
 
 	<br>
 
-<table class="table table-bordered">
-			<thead class="thead-inverse">
-				<tr>
-					<!-- <th><span class="fake-link" id="fake-link-1"
+
+	<table class="table table-bordered">
+		<thead class="thead-inverse">
+			<tr>
+				<!-- <th><span class="fake-link" id="fake-link-1"
 						ng-click="sortType = 'run_id'; sortReverse = !sortReverse">
 
 							Run ID</span></th> -->
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'chassis_id'; sortReverse = !sortReverse">
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'chassis_id'; sortReverse = !sortReverse">
 
-							Chassis ID</span></th>
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'chassis_ip'; sortReverse = !sortReverse">
+						Chassis ID</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'chassis_ip'; sortReverse = !sortReverse">
 
-							IP</span></th>
+						IP</span></th>
 
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'drive_fru'; sortReverse = !sortReverse">
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'drive_fru'; sortReverse = !sortReverse">
 
-							Drive FRU</span></th>
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'drive_serial'; sortReverse = !sortReverse">
+						Drive FRU</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'drive_serial'; sortReverse = !sortReverse">
 
-							Serial</span></th>
-					
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'drive_model'; sortReverse = !sortReverse">
+						Serial</span></th>
 
-							Model</span></th>
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'drive_capacity'; sortReverse = !sortReverse">
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'drive_model'; sortReverse = !sortReverse">
 
-							Drivev Capacity</span></th>
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'drive_firmware'; sortReverse = !sortReverse">
+						Model</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'drive_capacity'; sortReverse = !sortReverse">
 
-							Firmware</span></th>
-				
-					<th><span class="fake-link" id="fake-link-1"
-						ng-click="sortType = 'date'; sortReverse = !sortReverse">
+						Drivev Capacity</span></th>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'drive_firmware'; sortReverse = !sortReverse">
 
-							Date</span></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="table-success"
-					ng-repeat="item in value = (values | filter:{'chassis_id': searchChassis}  | filter:{'chassis_ip': searchIP} | filter:{'drive_fru': searchFRU} | filter:{'drive_serial': searchSerial} | filter:{'drive_model': searchModel } |  filter:{'drive_firmware': searchFirmware } | filter:{'date': searchDate } ) | orderBy:sortType:sortReverse | limitTo: limit ">
+						Firmware</span></th>
 
-					<!-- <th scope="row">{{item.run_id}}</th> -->
-					<td>{{item.chassis_id}}</td>
-					<td>{{item.chassis_ip}}</td>
-					<td>{{item.drive_fru}}</td>
-					<td>{{item.drive_serial}}</td>
-					<td>{{item.drive_model}}</td>
-					<td>{{item.drive_capacity}}</td>
-					<td>{{item.drive_firmware}}</td>
-					<td>{{item.date}}</td>
-				</tr>
+				<th><span class="fake-link" id="fake-link-1"
+					ng-click="sortType = 'date'; sortReverse = !sortReverse">
 
-			</tbody>
-		</table>
-		<br>
-		<button type="button" class="btn btn-info btn-lg btn-block"
-			ng-click="LoadMore()">Show More</button>
+						Date</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr class="table-success"
+				ng-repeat="item in value = (values | filter:{'chassis_id': searchChassis}  | filter:{'chassis_ip': searchIP} | filter:{'drive_fru': searchFRU} | filter:{'drive_serial': searchSerial} | filter:{'drive_model': searchModel } |  filter:{'drive_firmware': searchFirmware } | filter:{'date': searchDate } ) | orderBy:sortType:sortReverse | limitTo: limit ">
+				Total Records : {{value.length}}
+				<br>
+				<!-- <th scope="row">{{item.run_id}}</th> -->
+				<td>{{item.chassis_id}}</td>
+				<td>{{item.chassis_ip}}</td>
+				<td>{{item.drive_fru}}</td>
+				<td>{{item.drive_serial}}</td>
+				<td>{{item.drive_model}}</td>
+				<td>{{item.drive_capacity}}</td>
+				<td>{{item.drive_firmware}}</td>
+				<td>{{item.date}}</td>
+			</tr>
 
+		</tbody>
+	</table>
 
+	<br>
+	<button type="button" class="btn btn-info btn-lg btn-block"
+		ng-click="LoadMore()">Show More</button>
 
 
 
